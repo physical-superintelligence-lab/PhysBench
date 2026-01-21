@@ -3,7 +3,7 @@
 ### Clone this scripts
 
 ```shell
-git clone https://github.com/USC-GVL/PhysBench
+git clone https://github.com/physical-superintelligence-lab/PhysBench
 ```
 
 ### Download the dataset
@@ -101,13 +101,24 @@ After completing these changes, you can execute your model using the provided sc
 CUDA_VISIBLE_DEVICES=9 PYTHONPATH='./' python eval/test_benchmark.py --model_name gpt4o --dataset_path ./eval/physbench
 ```
 
-After running the script, a file named `[model_name].json` will be generated in the `./eval/physbench/results` directory. Please upload this file to [🔗 EvalAI](https://eval.ai/web/challenges/challenge-page/2461/overview) to automatically evaluate the results.
-
-- [Common Case] We also provide a 📃[tested sample file](https://github.com/USC-GVL/PhysBench/tree/main/eval/physbench/test_case.json), which can be referenced to understand the required JSON submission format. Please select **Test Phase in [🔗 EvalAI](https://eval.ai/web/challenges/challenge-page/2461/overview)**
+After running the script, a file named `[model_name].json` will be generated in the `./eval/physbench/results` directory.
+- [Common Case] We also provide a 📃[tested sample file](https://github.com/USC-GVL/PhysBench/tree/main/eval/physbench/test_case.json), which can be referenced to understand the required JSON submission format. 
 
 - [For model only support one image input] If the model you are testing is a model like LLaVA-1.5 that only supports one image input, you need to select `image&video` instead of the `general` above. At this time, you are actually testing the results of removing interleaved items, which is the experiment in the main table in our paper. We also provide 📃[tested sample file w/o interleaved](https://github.com/USC-GVL/PhysBench/tree/main/eval/physbench/test_case.json). Please select **Dev Phase in [🔗 EvalAI](https://eval.ai/web/challenges/challenge-page/2461/overview)**
 
     > (You need to pay special attention to that for models like LLaVA-1.5 that only support one image input, you need to stitch multiple frames of the item with mode `image&video` (only one video input) into one frame for input. We do not support the evaluation of image-only models due to the problem of the EvalAI platform
+
+### Print the Test Score
+
+Given that EvalAI is too cumbersome, you can now directly use the following script to evaluate and print out the scores without uploading to the EvalAI platform! (The results below are consistent with those in EvalAI)
+
+```shell
+PYTHONPATH='./' python eval/print_test_score.py --test-file '[model_name].json'
+```
+
+- This script differs slightly from directly using function calls within `val`. To maintain consistency with EvalAI, it does not directly call...
+
+~~Please upload this file to [🔗 EvalAI](https://eval.ai/web/challenges/challenge-page/2461/overview) to automatically evaluate the results. Please select **Test Phase in [🔗 EvalAI](https://eval.ai/web/challenges/challenge-page/2461/overview)**~~
 
 ### Some  cases
 
